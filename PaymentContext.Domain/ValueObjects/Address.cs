@@ -1,6 +1,8 @@
+using PaymentContext.Common.ValueObjects;
+
 namespace PaymentContext.Domain.ValueObjects
 {
-    public class Address
+    public class Address : ValueObject
     {
         public Address(string street, string number, string district, string city, string zipCode, string state, string country)
         {
