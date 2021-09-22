@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
+using PaymentContext.Common.Entities;
 using PaymentContext.Domain.ValueObjects;
 
 namespace PaymentContext.Domain.Entities
 {
-    public class Student
+    public class Student : Entity
     {
         private readonly IList<Subscription> _subscriptions;
 
