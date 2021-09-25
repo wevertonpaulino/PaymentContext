@@ -12,8 +12,8 @@ namespace PaymentContext.Domain.ValueObjects
 
             AddNotifications(new Contract<Name>()
                 .Requires()
-                .IsNotNullOrEmpty(FirstName, nameof(FirstName), $"{nameof(FirstName)} is invalid")
-                .IsNotNullOrEmpty(LastName, nameof(LastName), $"{nameof(LastName)} is invalid")
+                .IsNotNullOrEmpty(FirstName, nameof(FirstName), $"{nameof(FirstName)} is null or empty")
+                .IsNotNullOrEmpty(LastName, nameof(LastName), $"{nameof(LastName)} is null or empty")
             );
         }
 

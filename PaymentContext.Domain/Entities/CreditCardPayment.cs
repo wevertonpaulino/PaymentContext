@@ -15,7 +15,7 @@ namespace PaymentContext.Domain.Entities
 
             AddNotifications(new Contract<CreditCardPayment>()
                 .Requires()
-                .IsBetween(CardHolderName.Length, 3, 100, nameof(CardHolderName), $"{nameof(CardHolderName)} must be between 3 and 100 characters")
+                .IsNotNullOrEmpty(CardHolderName, nameof(CardHolderName), $"{nameof(CardHolderName)} is null or empty")
                 .IsCreditCard(CardNumber, nameof(CardNumber), $"{nameof(CardNumber)} is invalid")
             );
         }

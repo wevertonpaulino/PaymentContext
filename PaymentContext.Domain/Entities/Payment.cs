@@ -22,8 +22,7 @@ namespace PaymentContext.Domain.Entities
             AddNotifications(new Contract<Payment>()
                 .Requires()
                 .IsGreaterThan(Total, 0, nameof(Total), $"{nameof(Total)} must be greater than 0")
-                .IsGreaterOrEqualsThan(TotalPaid, Total, nameof(TotalPaid), $"{nameof(TotalPaid)} must be greater than or equal to {nameof(Total)}")
-                .IsBetween(Payer.Length, 3, 100, nameof(Payer), $"{nameof(Payer)} must be between 3 and 100 characters"),
+                .IsGreaterOrEqualsThan(TotalPaid, Total, nameof(TotalPaid), $"{nameof(TotalPaid)} must be greater than or equal to {nameof(Total)}"),
             Document, Email, Address);
         }
 

@@ -18,11 +18,11 @@ namespace PaymentContext.Domain.ValueObjects
 
             AddNotifications(new Contract<Address>()
                 .Requires()
-                .IsNotNullOrEmpty(Street, nameof(Street), $"{nameof(Street)} is invalid")
-                .IsNotNullOrEmpty(Number, nameof(Number), $"{nameof(Number)} is invalid")
-                .IsNotNullOrEmpty(District, nameof(District), $"{nameof(District)} is invalid")
+                .IsNotNullOrEmpty(Street, nameof(Street), $"{nameof(Street)} is null or empty")
+                .IsNotNullOrEmpty(Number, nameof(Number), $"{nameof(Number)} is null or empty")
+                .IsNotNullOrEmpty(District, nameof(District), $"{nameof(District)} is null or empty")
                 .IsZipCode(ZipCode, nameof(ZipCode), $"{nameof(ZipCode)} is invalid")
-                .IsNotNullOrEmpty(City, nameof(City), $"{nameof(City)} is invalid")
+                .IsNotNullOrEmpty(City, nameof(City), $"{nameof(City)} is null or empty")
                 .IsState(State, nameof(State), $"{nameof(State)} is invalid")
                 .IsCountry(Country, nameof(Country), $"{nameof(Country)} is invalid")
             );
