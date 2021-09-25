@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Flunt.Validations;
 using PaymentContext.Common.Entities;
 using PaymentContext.Domain.ValueObjects;
 
@@ -9,11 +10,15 @@ namespace PaymentContext.Domain.Entities
     {
         private readonly IList<Subscription> _subscriptions;
 
-        public Student(Name name, Document document, Email email)
+        public Student(Name name, Document document, Email email, Address address)
         {
             Name = name;
             Document = document;
             Email = email;
+            Address = address;
+
+            AddNotifications(Name, Document, Email, Address);
+
             _subscriptions = new List<Subscription>();
         }
 
@@ -28,10 +33,13 @@ namespace PaymentContext.Domain.Entities
 
         public void AddSubscription(Subscription subscription)
         {
-            foreach (var sub in _subscriptions)
-                sub.Activate(false);
+            if (_subscriptions.Any(x => x.Active))
+                AddNotification(nameof(Subscriptions), "Student already has active subscription");
 
-            _subscriptions.Add(subscription);
+            AddNotifications(subscription);
+
+            if (IsValid)
+                _subscriptions.Add(subscription);
         }
     }
 }

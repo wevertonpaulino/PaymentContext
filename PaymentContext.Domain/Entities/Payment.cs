@@ -1,26 +1,34 @@
 using System;
+using Flunt.Extensions.Br.Validations;
+using Flunt.Validations;
+using PaymentContext.Common.Entities;
 using PaymentContext.Domain.ValueObjects;
 
 namespace PaymentContext.Domain.Entities
 {
-    public abstract class Payment
+    public abstract class Payment : Entity
     {
-        protected Payment(DateTime paidDate, DateTime expireDate, decimal total, decimal totalPaid, string payer, Document document, Email email, Address address)
+        protected Payment(DateTime paidDate, decimal total, decimal totalPaid, string payer, Document document, Email email, Address address)
         {
             Number = Guid.NewGuid();
             PaidDate = paidDate;
-            ExpireDate = expireDate;
             Total = total;
             TotalPaid = totalPaid;
             Payer = payer;
             Document = document;
             Email = email;
             Address = address;
+
+            AddNotifications(new Contract<Payment>()
+                .Requires()
+                .IsGreaterThan(Total, 0, nameof(Total), $"{nameof(Total)} must be greater than 0")
+                .IsGreaterOrEqualsThan(TotalPaid, Total, nameof(TotalPaid), $"{nameof(TotalPaid)} must be greater than or equal to {nameof(Total)}")
+                .IsBetween(Payer.Length, 3, 100, nameof(Payer), $"{nameof(Payer)} must be between 3 and 100 characters"),
+            Document, Email, Address);
         }
 
         public Guid Number { get; private set; }
         public DateTime PaidDate { get; private set; }
-        public DateTime ExpireDate { get; private set; }
         public decimal Total { get; private set; }
         public decimal TotalPaid { get; private set; }
         public string Payer { get; private set; }

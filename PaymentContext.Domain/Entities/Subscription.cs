@@ -1,19 +1,28 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Flunt.Validations;
+using PaymentContext.Common.Entities;
 
 namespace PaymentContext.Domain.Entities
 {
-    public class Subscription
+    public class Subscription : Entity
     {
         private readonly IList<Payment> _payments;
 
-        public Subscription(DateTime? expireDate)
+        public Subscription(DateTime? expireDate = null)
         {
             ExpireDate = expireDate;
             CreateDate = DateTime.Now;
             LastUpdateDate = DateTime.Now;
-            Active = true;
+            Active = false;
+
+            AddNotifications(new Contract<Subscription>()
+                .Requires()
+                .IsGreaterOrEqualsThan(ExpireDate ?? DateTime.Now, CreateDate, nameof(ExpireDate),
+                    $"{nameof(ExpireDate)} must be greater than or equal to {nameof(CreateDate)}")
+            );
+
             _payments = new List<Payment>();
         }
 
@@ -28,7 +37,16 @@ namespace PaymentContext.Domain.Entities
 
         public void AddPayment(Payment payment)
         {
-            _payments.Add(payment);
+            if (_payments.Any())
+                AddNotification(nameof(Payments), "Subscription already has payment");
+
+            AddNotifications(payment);
+
+            if (IsValid)
+            {
+                _payments.Add(payment);
+                Active = true;
+            }
         }
 
         public void Activate(bool active)
