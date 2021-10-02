@@ -1,1 +1,3 @@
 # PaymentContext
+
+Modeling rich domains.
