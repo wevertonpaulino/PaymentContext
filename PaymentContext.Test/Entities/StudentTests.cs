@@ -13,7 +13,7 @@ namespace PaymentContext.Test.Entities
             var name = new Name("Charlie", "Sheen");
             var document = new Document("36686774090", EDocumentType.CPF);
             var email = new Email("charliesheen@gmail.com");
-            var address = new Address("Street 1", "1234", "Malibu", "85875-000", "California", "SP", "BR");
+            var address = new Address("Street 1", "1234", "District 1", "85875-000", "Malibu", "SP", "BR");
 
             return new Student(name, document, email, address);
         }
@@ -23,7 +23,7 @@ namespace PaymentContext.Test.Entities
             var name = new Name("", null);
             var document = new Document("00000000000", EDocumentType.CPF);
             var email = new Email("charliesheengmail.com");
-            var address = new Address("Street 1", "1234", null, "85875000", "California", "TX", "BR");
+            var address = new Address("Street 1", "1234", null, "85875000", "Malibu", null, "XX");
 
             return new Student(name, document, email, address);
         }

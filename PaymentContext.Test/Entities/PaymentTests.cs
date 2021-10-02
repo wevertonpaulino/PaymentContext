@@ -16,7 +16,7 @@ namespace PaymentContext.Test.Entities
         {
             _document = new Document("36686774090", EDocumentType.CPF);
             _email = new Email("charliesheen@gmail.com");
-            _address = new Address("Street 1", "1234", "Malibu", "85875-000", "California", "SP", "BR");
+            _address = new Address("Street 1", "1234", "District 1", "85875-000", "Malibu", "SP", "BR");
         }
 
         [Fact]
